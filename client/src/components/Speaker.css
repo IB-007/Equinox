@@ -1,0 +1,114 @@
+/* ═══════════════════════════════════════════════
+   Speaker Section
+   ═══════════════════════════════════════════════ */
+
+.speakers__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    position: relative;
+    z-index: 2;
+}
+
+.speakers__bg-vector {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.speakers__bg-vector svg {
+    width: 100%;
+    height: 100%;
+}
+
+.speakers__card {
+    text-align: center;
+    padding: var(--space-lg) var(--space-sm);
+    border: 1px solid rgba(201, 169, 110, 0.05);
+    background: rgba(47, 58, 85, 0.1);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-smooth);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.speakers__card:hover {
+    background: rgba(47, 58, 85, 0.3);
+    border-color: rgba(201, 169, 110, 0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(201, 169, 110, 0.1);
+}
+
+.speakers__avatar {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto var(--space-md);
+}
+
+.speakers__avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: rgba(47, 58, 85, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--marble);
+    position: relative;
+    z-index: 1;
+}
+
+.speakers__avatar-ring {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1px solid var(--gold-line);
+    transition: all var(--transition-smooth);
+}
+
+.speakers__card:hover .speakers__avatar-ring {
+    border-color: var(--gold-subtle);
+    opacity: 0.5;
+    inset: -8px;
+}
+
+.speakers__name {
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.1em;
+}
+
+.speakers__role {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--gold-subtle);
+    opacity: 0.5;
+    margin-bottom: 0.2rem;
+}
+
+.speakers__org {
+    font-size: 0.7rem;
+    opacity: 0.4;
+    letter-spacing: 0.1em;
+}
+
+@media (max-width: 1024px) {
+    .speakers__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .speakers__grid {
+        grid-template-columns: 1fr;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+}

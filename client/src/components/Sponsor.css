@@ -1,0 +1,77 @@
+/* ═══════════════════════════════════════════════
+   Sponsor Section
+   ═══════════════════════════════════════════════ */
+
+.sponsor__tier {
+    margin-bottom: var(--space-lg);
+}
+
+.sponsor__tier-label {
+    display: block;
+    text-align: center;
+    font-family: var(--font-heading);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--marble);
+    opacity: 0.4;
+    margin-bottom: var(--space-md);
+}
+
+.sponsor__logos {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+}
+
+.sponsor__logo-card {
+    width: 150px;
+    height: 100px;
+    border: 1px solid rgba(201, 169, 110, 0.08);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(47, 58, 85, 0.2);
+    transition: all var(--transition-smooth);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.sponsor__logo-card:hover {
+    border-color: rgba(201, 169, 110, 0.25);
+    background: rgba(47, 58, 85, 0.35);
+    box-shadow: 0 8px 25px rgba(201, 169, 110, 0.15);
+    transform: translateY(-4px);
+}
+
+.sponsor__logo-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--marble);
+}
+
+.sponsor__logo-name {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    opacity: 0.4;
+    text-transform: uppercase;
+}
+
+/* Tier size differences */
+.sponsor__tier--gold .sponsor__logo-card {
+    width: 360px;
+    height: 240px;
+}
+
+
+@media (max-width: 640px) {
+
+    .sponsor__tier--gold .sponsor__logo-card{
+        width: 130px;
+        height: 90px;
+    }
+}

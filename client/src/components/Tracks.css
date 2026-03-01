@@ -1,0 +1,118 @@
+/* ═══════════════════════════════════════════════
+   Tracks Section
+   ═══════════════════════════════════════════════ */
+
+.tracks__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    position: relative;
+    z-index: 2;
+}
+
+.tracks__bg-vector {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120vw;
+    height: 120vw;
+    max-width: 1000px;
+    max-height: 800px;
+    opacity: 0.2;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.tracks__bg-vector svg {
+    width: 100%;
+    height: 100%;
+}
+
+.tracks__card {
+    padding: var(--space-lg) var(--space-md);
+    border: 1px solid rgba(201, 169, 110, 0.15);
+    border-radius: var(--radius-md);
+    background: rgba(47, 58, 85, 0.35);
+    transition: all var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.tracks__card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+            rgba(201, 169, 110, 0.03) 0%,
+            transparent 50%);
+    opacity: 0;
+    transition: opacity var(--transition-smooth);
+}
+
+.tracks__card:hover {
+    border-color: rgba(201, 169, 110, 0.35);
+    transform: translateY(-4px);
+    background: rgba(47, 58, 85, 0.55);
+    box-shadow: 0 8px 30px rgba(201, 169, 110, 0.08);
+}
+
+.tracks__card:hover::before {
+    opacity: 1;
+}
+
+.tracks__icon {
+    display: block;
+    font-size: 1.8rem;
+    margin-bottom: var(--space-sm);
+    color: var(--gold-subtle);
+    opacity: 0.5;
+}
+
+.tracks__name {
+    margin-bottom: 0.3rem;
+    font-size: 0.95rem;
+}
+
+.tracks__subtitle {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--gold-subtle);
+    opacity: 0.5;
+    margin-bottom: var(--space-sm);
+}
+
+.tracks__desc {
+    font-size: 0.85rem;
+    opacity: 0.6;
+    line-height: 1.7;
+}
+
+.tracks__line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-line), transparent);
+    opacity: 0;
+    transition: opacity var(--transition-smooth);
+}
+
+.tracks__card:hover .tracks__line {
+    opacity: 1;
+}
+
+@media (max-width: 1024px) {
+    .tracks__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .tracks__grid {
+        grid-template-columns: 1fr;
+    }
+}

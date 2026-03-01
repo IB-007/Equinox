@@ -1,0 +1,252 @@
+/* ═══════════════════════════════════════════════
+   EQUINOX — Global Styles
+   ═══════════════════════════════════════════════ */
+
+@import './variables.css';
+@import './animations.css';
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-body);
+    font-weight: 300;
+    color: var(--marble);
+    line-height: 1.7;
+    overflow-x: hidden;
+
+    /* Deep midnight gradient with equinox duality */
+    background: linear-gradient(135deg,
+            var(--equinox-dark) 0%,
+            var(--primary-dark) 25%,
+            var(--primary-mid) 50%,
+            var(--equinox-mid) 75%,
+            var(--primary-light) 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+/* ── Typography ── */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    color: var(--mist);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+}
+
+h2 {
+    font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+    margin-bottom: var(--space-md);
+}
+
+h3 {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+}
+
+.accent-text {
+    font-family: var(--font-accent);
+    text-transform: none;
+    letter-spacing: 0.02em;
+}
+
+p {
+    font-size: clamp(0.9rem, 1.1vw, 1.05rem);
+    max-width: 65ch;
+    color: var(--marble);
+    opacity: 0.95;
+}
+
+a {
+    color: var(--marble);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--mist);
+}
+
+/* ── Layout Utility ── */
+.section {
+    padding: var(--space-xl) var(--space-md);
+    max-width: var(--max-width);
+    margin: 0 auto;
+    position: relative;
+}
+
+.section-full {
+    padding: var(--space-xl) var(--space-md);
+    position: relative;
+    width: 100%;
+}
+
+/* ── Section Heading ── */
+.section-title {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 1px;
+    background: var(--gold-line);
+    margin: var(--space-sm) auto 0;
+}
+
+/* ── Greek Border Divider ── */
+.celestial-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            var(--gold-line) 20%,
+            var(--gold-subtle) 50%,
+            var(--gold-line) 80%,
+            transparent 100%);
+    opacity: 0.4;
+    margin: 0;
+}
+
+/* ── Scroll Reveal ── */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity var(--transition-cinematic), transform var(--transition-cinematic);
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ── Dense Star Texture Overlay ── */
+.star-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+        /* Bright stars */
+        radial-gradient(1.2px 1.2px at 20px 30px, rgba(245, 246, 243, 0.22), transparent),
+        radial-gradient(1px 1px at 85px 110px, rgba(245, 246, 243, 0.18), transparent),
+        radial-gradient(1.3px 1.3px at 150px 45px, rgba(245, 246, 243, 0.2), transparent),
+        radial-gradient(0.8px 0.8px at 40px 170px, rgba(245, 246, 243, 0.15), transparent),
+        radial-gradient(1px 1px at 190px 90px, rgba(245, 246, 243, 0.16), transparent),
+        /* Medium stars */
+        radial-gradient(0.7px 0.7px at 65px 55px, rgba(201, 169, 110, 0.12), transparent),
+        radial-gradient(0.8px 0.8px at 120px 140px, rgba(245, 246, 243, 0.1), transparent),
+        radial-gradient(0.6px 0.6px at 175px 20px, rgba(245, 246, 243, 0.12), transparent),
+        radial-gradient(0.9px 0.9px at 30px 120px, rgba(245, 246, 243, 0.14), transparent),
+        radial-gradient(0.7px 0.7px at 160px 160px, rgba(201, 169, 110, 0.08), transparent),
+        /* Dim stars */
+        radial-gradient(0.5px 0.5px at 50px 80px, rgba(245, 246, 243, 0.08), transparent),
+        radial-gradient(0.5px 0.5px at 100px 10px, rgba(245, 246, 243, 0.07), transparent),
+        radial-gradient(0.4px 0.4px at 135px 95px, rgba(245, 246, 243, 0.06), transparent),
+        radial-gradient(0.6px 0.6px at 10px 150px, rgba(245, 246, 243, 0.09), transparent),
+        radial-gradient(0.5px 0.5px at 185px 130px, rgba(245, 246, 243, 0.07), transparent),
+        radial-gradient(0.4px 0.4px at 70px 190px, rgba(245, 246, 243, 0.06), transparent),
+        radial-gradient(0.6px 0.6px at 140px 70px, rgba(201, 169, 110, 0.05), transparent),
+        radial-gradient(0.5px 0.5px at 95px 175px, rgba(245, 246, 243, 0.08), transparent),
+        radial-gradient(0.4px 0.4px at 55px 135px, rgba(245, 246, 243, 0.06), transparent),
+        radial-gradient(0.3px 0.3px at 170px 110px, rgba(245, 246, 243, 0.05), transparent);
+    background-size: 200px 200px;
+}
+
+/* ── Button Base ── */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 2.2rem;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all var(--transition-smooth);
+    border: 1px solid var(--gold-line);
+    background: rgba(47, 58, 85, 0.1);
+    color: var(--mist);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.btn:hover {
+    background: rgba(201, 169, 110, 0.15);
+    border-color: var(--gold-subtle);
+    color: var(--mist);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(201, 169, 110, 0.2);
+}
+
+.btn-primary {
+    background: rgba(201, 169, 110, 0.15);
+    border-color: var(--gold-subtle);
+    box-shadow: 0 4px 15px rgba(201, 169, 110, 0.1);
+}
+
+.btn-primary:hover {
+    background: rgba(201, 169, 110, 0.25);
+    box-shadow: 0 6px 25px rgba(201, 169, 110, 0.25);
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--primary-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-light);
+    border-radius: 3px;
+}
+
+/* ── Selection ── */
+::selection {
+    background: var(--primary-light);
+    color: var(--mist);
+}
+
+/* ── Responsiveness ── */
+@media (max-width: 768px) {
+    .section {
+        padding: var(--space-lg) var(--space-sm);
+    }
+
+    .section-full {
+        padding: var(--space-lg) var(--space-sm);
+    }
+}

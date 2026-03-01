@@ -1,0 +1,124 @@
+/* ═══════════════════════════════════════════════
+   Footer
+   ═══════════════════════════════════════════════ */
+
+.footer {
+    position: relative;
+    background: rgba(37, 46, 69, 0.5);
+}
+
+.footer__content {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-md) var(--space-md);
+}
+
+/* Subtle Greek meander pattern border */
+.footer__meander {
+    width: 100%;
+    height: 2px;
+    background: repeating-linear-gradient(90deg,
+            var(--gold-line) 0px,
+            var(--gold-line) 8px,
+            transparent 8px,
+            transparent 12px,
+            var(--gold-line) 12px,
+            var(--gold-line) 20px,
+            transparent 20px,
+            transparent 24px);
+    opacity: 0.3;
+    margin-bottom: var(--space-lg);
+}
+
+.footer__inner {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-lg);
+}
+
+.footer__brand {
+    max-width: 350px;
+}
+
+.footer__logo-icon {
+    font-size: 1.2rem;
+    color: var(--gold-subtle);
+    opacity: 0.5;
+    margin-right: 0.5rem;
+}
+
+.footer__logo-text {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mist);
+}
+
+.footer__tagline {
+    margin-top: var(--space-sm);
+    font-size: 0.8rem;
+    opacity: 0.4;
+    font-style: italic;
+}
+
+.footer__links {
+    display: flex;
+    gap: var(--space-xl);
+}
+
+.footer__col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.footer__col-title {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    opacity: 0.5;
+}
+
+.footer__col a {
+    font-size: 0.8rem;
+    opacity: 0.45;
+    transition: opacity var(--transition-fast);
+}
+
+.footer__col a:hover {
+    opacity: 0.8;
+}
+
+.footer__bottom {
+    text-align: center;
+    padding-top: var(--space-md);
+    border-top: 1px solid rgba(201, 169, 110, 0.05);
+}
+
+.footer__bottom p {
+    font-size: 0.7rem;
+    opacity: 0.3;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.footer__motto {
+    margin-top: 0.5rem !important;
+    font-size: 0.75rem !important;
+    opacity: 0.25 !important;
+    letter-spacing: 0.1em;
+}
+
+@media (max-width: 768px) {
+    .footer__inner {
+        flex-direction: column;
+        gap: var(--space-lg);
+    }
+
+    .footer__links {
+        gap: var(--space-lg);
+    }
+}
