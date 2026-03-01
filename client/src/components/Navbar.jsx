@@ -5,10 +5,9 @@ const NAV_LINKS = [
     { label: 'About', href: '#about' },
     { label: 'Tracks', href: '#tracks' },
     { label: 'Timeline', href: '#timeline' },
-    { label: 'Speakers', href: '#speakers' },
     { label: 'Sponsors', href: '#sponsors' },
-    { label: 'FAQ', href: '#faq' },
     { label: 'Register', href: '#register' },
+    { label: 'FAQ', href: '#faq' },
 ];
 
 export default function Navbar() {
