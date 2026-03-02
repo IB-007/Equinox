@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
+import ConstellationCanvas from './components/ConstellationCanvas';
 import Hero from './components/Hero';
 import About from './components/About';
 import Tracks from './components/Tracks';
@@ -36,6 +37,8 @@ export default function App() {
           live in the root stacking context — not trapped by transform/opacity */}
       <CustomCursor />
       <Navbar />
+      {/* Constellation field — fixed, always visible, pointer-events pass-through */}
+      <ConstellationCanvas />
 
       <div className="app page-enter">
         {/* Fixed subtle star texture */}
