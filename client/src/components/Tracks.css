@@ -63,6 +63,26 @@
     opacity: 1;
 }
 
+/* Diagonal shimmer sweep on hover */
+.tracks__card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -80%;
+    width: 55%;
+    height: 100%;
+    background: linear-gradient(105deg,
+        transparent 30%,
+        rgba(201, 169, 110, 0.07) 50%,
+        transparent 70%);
+    transform: skewX(-12deg);
+    pointer-events: none;
+}
+
+.tracks__card:hover::after {
+    animation: shimmerSweep 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
 .tracks__icon {
     display: block;
     font-size: 1.8rem;
@@ -114,5 +134,9 @@
 @media (max-width: 640px) {
     .tracks__grid {
         grid-template-columns: 1fr;
+    }
+
+    .tracks__card {
+        padding: var(--space-md) var(--space-sm);
     }
 }

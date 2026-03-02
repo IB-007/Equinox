@@ -21,6 +21,17 @@ app.get('/api/health', (_req, res) => {
     res.json({ status: 'ok', message: 'Equinox server running' });
 });
 
+// Serve static client files from the build directory
+const path = require('path');
+const staticDir = path.join(__dirname, '../client/dist');
+app.use(express.static(staticDir));
+
+// Catch-all to return the client index for any other request (for SPA routing)
+// Use a regex route instead of string pattern to avoid parsing issues with '*' in Express 5
+app.get(/.*/, (req, res) => {
+    res.sendFile(path.join(staticDir, 'index.html'));
+});
+
 app.listen(PORT, () => {
     console.log(`☉ Equinox server listening on port ${PORT}`);
 });

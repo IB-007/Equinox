@@ -96,12 +96,6 @@ export default function Hero() {
                     </button>
                 </div>
 
-                <div className="hero__scroll-indicator float">
-                    <svg width="20" height="30" viewBox="0 0 20 30" fill="none">
-                        <rect x="1" y="1" width="18" height="28" rx="9" stroke="currentColor" strokeWidth="1" opacity="0.3" />
-                        <circle className="hero__scroll-dot" cx="10" cy="10" r="2" fill="currentColor" opacity="0.5" />
-                    </svg>
-                </div>
             </div>
         </section>
     );

@@ -3,12 +3,13 @@
    ═══════════════════════════════════════════════ */
 
 .navbar {
-    position: sticky;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
-    padding: 0; /* removed side padding */
+    padding: 0;
+    /* removed side padding */
     height: var(--nav-height);
     display: flex;
     align-items: center;
@@ -48,7 +49,7 @@
 
 .navbar__logo-text {
     font-family: var(--font-heading);
-    font-size: 1.1rem;
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--mist);
@@ -71,12 +72,33 @@
     border-radius: var(--radius-sm);
     transition: all var(--transition-fast);
     text-decoration: none;
+    position: relative;
+}
+
+/* Underline slide-in on hover */
+.navbar__links li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0.25rem;
+    left: 0.9rem;
+    right: 0.9rem;
+    height: 1px;
+    background: var(--gold-subtle);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--transition-smooth);
+    opacity: 0.6;
 }
 
 .navbar__links li a:hover {
     opacity: 1;
     color: var(--mist);
     background: rgba(201, 169, 110, 0.06);
+}
+
+.navbar__links li a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
 }
 
 /* Hamburger */
@@ -87,7 +109,11 @@
     background: none;
     border: none;
     cursor: pointer;
-    padding: 4px;
+    padding: 10px;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
 }
 
 .navbar__toggle span {
@@ -123,11 +149,13 @@
         flex-direction: column;
         background: rgba(37, 46, 69, 0.97);
         backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         padding: var(--space-sm) 0;
         gap: 0;
         transform: translateY(-120%);
         opacity: 0;
         transition: all var(--transition-smooth);
+        z-index: 999;
     }
 
     .navbar__links--open {
@@ -136,8 +164,10 @@
     }
 
     .navbar__links li a {
-        display: block;
-        padding: var(--space-sm) var(--space-md);
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1.5rem;
+        min-height: 44px;
         font-size: 0.75rem;
     }
 }

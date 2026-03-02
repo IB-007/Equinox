@@ -1,0 +1,51 @@
+/* ═══════════════════════════════════════════════
+   Custom Celestial Cursor
+   ═══════════════════════════════════════════════ */
+
+/* Hide default cursor on fine-pointer devices */
+@media (pointer: fine) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+}
+
+/* ── Center dot ── */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(201, 169, 110, 0.92);
+  box-shadow:
+    0 0 6px 2px rgba(201, 169, 110, 0.5),
+    0 0 12px 4px rgba(201, 169, 110, 0.18);
+  pointer-events: none;
+  z-index: 10000;
+  will-change: transform;
+}
+
+/* ── Ring wrapper — handles position only ── */
+.cursor-ring-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform;
+}
+
+/* ── Ring — handles rotation only ── */
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  animation: cursorSpin 9s linear infinite;
+}
+
+@keyframes cursorSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}

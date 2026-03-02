@@ -26,8 +26,8 @@
 }
 
 .sponsor__logo-card {
-    width: 150px;
-    height: 100px;
+    width: clamp(120px, 28vw, 150px);
+    height: clamp(80px, 18vw, 100px);
     border: 1px solid rgba(201, 169, 110, 0.08);
     border-radius: var(--radius-md);
     display: flex;
@@ -37,6 +37,37 @@
     transition: all var(--transition-smooth);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
+    position: relative;
+    overflow: hidden;
+    /* staggered entrance */
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.sponsor__logo-card.show {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                border-color var(--transition-smooth),
+                background var(--transition-smooth),
+                box-shadow var(--transition-smooth);
+}
+
+/* Diagonal shimmer on hover */
+.sponsor__logo-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -80%;
+    width: 55%;
+    height: 100%;
+    background: linear-gradient(105deg,
+        transparent 30%,
+        rgba(201, 169, 110, 0.08) 50%,
+        transparent 70%);
+    transform: skewX(-12deg);
+    pointer-events: none;
 }
 
 .sponsor__logo-card:hover {
@@ -44,6 +75,10 @@
     background: rgba(47, 58, 85, 0.35);
     box-shadow: 0 8px 25px rgba(201, 169, 110, 0.15);
     transform: translateY(-4px);
+}
+
+.sponsor__logo-card:hover::after {
+    animation: shimmerSweep 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .sponsor__logo-placeholder {
@@ -63,15 +98,49 @@
 
 /* Tier size differences */
 .sponsor__tier--gold .sponsor__logo-card {
-    width: 360px;
-    height: 240px;
+    width: clamp(150px, 22vw, 180px);
+    height: clamp(100px, 15vw, 120px);
+    border-color: rgba(201, 169, 110, 0.18);
 }
 
+/* Silver = base size (clamp 120–150px), no override needed */
 
-@media (max-width: 640px) {
+.sponsor__tier--bronze .sponsor__logo-card {
+    width: clamp(100px, 16vw, 130px);
+    height: clamp(68px, 11vw, 85px);
+}
 
-    .sponsor__tier--gold .sponsor__logo-card{
-        width: 130px;
-        height: 90px;
+/* Tier label colour accents */
+.sponsor__tier--gold .sponsor__tier-label {
+    color: var(--gold-subtle);
+    opacity: 0.75;
+    letter-spacing: 0.25em;
+}
+
+.sponsor__tier--silver .sponsor__tier-label {
+    opacity: 0.5;
+}
+
+.sponsor__tier--bronze .sponsor__tier-label {
+    opacity: 0.35;
+}
+
+@media (max-width: 768px) {
+    .sponsor__logos {
+        gap: var(--space-sm);
+    }
+
+    .sponsor__tier--gold .sponsor__logo-card {
+        width: clamp(130px, 40vw, 160px);
+        height: clamp(88px, 28vw, 108px);
+    }
+}
+
+@media (max-width: 480px) {
+    .sponsor__tier--gold .sponsor__logo-card,
+    .sponsor__tier--silver .sponsor__logo-card,
+    .sponsor__tier--bronze .sponsor__logo-card {
+        width: clamp(100px, 40vw, 130px);
+        height: clamp(68px, 28vw, 88px);
     }
 }

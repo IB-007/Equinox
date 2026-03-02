@@ -41,14 +41,16 @@
 .speakers__card:hover {
     background: rgba(47, 58, 85, 0.3);
     border-color: rgba(201, 169, 110, 0.2);
-    transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(201, 169, 110, 0.1);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(201, 169, 110, 0.08);
 }
 
 .speakers__avatar {
     position: relative;
-    width: 100px;
-    height: 100px;
+    width: clamp(80px, 15vw, 100px);
+    height: clamp(80px, 15vw, 100px);
     margin: 0 auto var(--space-md);
 }
 
@@ -105,10 +107,21 @@
     }
 }
 
+@media (max-width: 768px) {
+    .speakers__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-sm);
+    }
+
+    .speakers__card {
+        padding: var(--space-md) var(--space-sm);
+    }
+}
+
 @media (max-width: 480px) {
     .speakers__grid {
         grid-template-columns: 1fr;
-        max-width: 300px;
+        max-width: 320px;
         margin: 0 auto;
     }
 }

@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -30,32 +31,38 @@ export default function App() {
   }, []);
 
   return (
-    <div className="app page-enter">
-      {/* Fixed subtle star texture */}
-      <div className="star-overlay" />
-
+    <>
+      {/* Rendered outside the animated app div so position:fixed elements
+          live in the root stacking context — not trapped by transform/opacity */}
+      <CustomCursor />
       <Navbar />
-      <Hero />
 
-      <div className="celestial-divider" />
-      <About />
+      <div className="app page-enter">
+        {/* Fixed subtle star texture */}
+        <div className="star-overlay" />
 
-      <div className="celestial-divider" />
-      <Tracks />
+        <Hero />
 
-      <div className="celestial-divider" />
-      <Timeline />
-      
-      <div className="celestial-divider" />
-      <Sponsor />
+        <div className="celestial-divider" />
+        <About />
 
-      <div className="celestial-divider" />
-      <RegisterForm />
+        <div className="celestial-divider" />
+        <Tracks />
 
-      <div className="celestial-divider" />
-      <FAQ />
+        <div className="celestial-divider" />
+        <Timeline />
 
-      <Footer />
-    </div>
+        <div className="celestial-divider" />
+        <Sponsor />
+
+        <div className="celestial-divider" />
+        <RegisterForm />
+
+        <div className="celestial-divider" />
+        <FAQ />
+
+        <Footer />
+      </div>
+    </>
   );
 }

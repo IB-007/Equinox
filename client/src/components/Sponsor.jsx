@@ -3,6 +3,13 @@ import './Sponsor.css';
 
 const SPONSORS = [
     { name: 'Sponsor Alpha', tier: 'Gold' },
+    { name: 'Sponsor Beta', tier: 'Gold' },
+    { name: 'Sponsor Gamma', tier: 'Silver' },
+    { name: 'Sponsor Delta', tier: 'Silver' },
+    { name: 'Sponsor Epsilon', tier: 'Silver' },
+    { name: 'Sponsor Zeta', tier: 'Bronze' },
+    { name: 'Sponsor Eta', tier: 'Bronze' },
+    { name: 'Sponsor Theta', tier: 'Bronze' },
 ];
 
 export default function Sponsor() {
@@ -20,7 +27,7 @@ export default function Sponsor() {
                     cards.forEach((card, index) => {
                         setTimeout(() => {
                             card.classList.add("show");
-                        }, index * 100); // stagger animation
+                        }, index * 100);
                     });
                 }
             },
@@ -32,6 +39,8 @@ export default function Sponsor() {
     }, []);
 
     const gold = SPONSORS.filter(s => s.tier === 'Gold');
+    const silver = SPONSORS.filter(s => s.tier === 'Silver');
+    const bronze = SPONSORS.filter(s => s.tier === 'Bronze');
 
     const renderTier = (label, sponsors, tierClass) => (
         <div className={`sponsor__tier ${tierClass}`}>
@@ -62,7 +71,8 @@ export default function Sponsor() {
             </div>
 
             {renderTier('Gold Partners', gold, 'sponsor__tier--gold')}
-            
+            {renderTier('Silver Partners', silver, 'sponsor__tier--silver')}
+            {renderTier('Bronze Partners', bronze, 'sponsor__tier--bronze')}
         </section>
     );
 }
