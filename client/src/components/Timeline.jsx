@@ -2,14 +2,20 @@ import { useEffect, useRef } from "react";
 import './Timeline.css';
 
 const EVENTS = [
-    { time: 'Day 0 — 6:00 PM', title: 'Opening Ceremony', desc: 'The celestial gates open. Welcome address and keynote.' },
-    { time: 'Day 0 — 7:30 PM', title: 'Team Formation & Ideation', desc: 'Form your constellation. Brainstorm and strategize.' },
-    { time: 'Day 0 — 9:00 PM', title: 'Hacking Begins', desc: 'The cosmic clock starts. 48 hours of innovation commences.' },
-    { time: 'Day 1 — 10:00 AM', title: 'Mentor Sessions', desc: 'Navigate by the guiding stars. Expert sessions and reviews.' },
-    { time: 'Day 1 — 8:00 PM', title: 'Mid-Hackathon Checkpoint', desc: 'The equinox moment. Progress reviews and pivots.' },
-    { time: 'Day 2 — 12:00 PM', title: 'Final Submissions', desc: 'Seal your creation under the celestial dome.' },
-    { time: 'Day 2 — 3:00 PM', title: 'Demos & Judging', desc: 'Present your work to the cosmic council.' },
-    { time: 'Day 2 — 6:00 PM', title: 'Closing Ceremony', desc: 'Awards, reflections, and the alignment of stars.' },
+    { time: 'Day 0 — 2 Days Before', title: 'Review 0 (Online Screening)', desc: 'Initial evaluation via Google Forms to shortlist approximately 150 teams.' },
+
+    { time: 'Day 1 — 08:00 AM - 11:00 AM', title: 'Check-in & Opening Ceremony', desc: 'Participant check-in followed by welcome address and Panasonic introduction.' },
+    { time: 'Day 1 — 11:00 AM', title: 'Hack Commences', desc: 'The cosmic clock starts — hacking officially begins.' },
+    { time: 'Day 1 — 05:30 PM - 07:30 PM', title: 'Review 1', desc: 'Organizer review to assess progress, inactive teams are eliminated.' },
+    { time: 'Day 1 — 08:00 PM', title: 'Shortlist Announcement', desc: 'Teams advancing to the next stage are announced.' },
+
+    { time: 'Day 2 — 10:00 AM - 12:00 PM', title: 'Review 2', desc: 'Faculty evaluates architecture, feasibility, and problem-solution alignment.' },
+    { time: 'Day 2 — 05:00 PM - 06:00 PM', title: 'Speaker Session', desc: 'Industry insights and inspiration from an expert speaker.' },
+
+    { time: 'Day 3 — 10:00 AM - 12:00 PM', title: 'Review 3 & Code Freeze', desc: 'Final submission and evaluation, judges shortlist finalists.' },
+    { time: 'Day 3 — 02:00 PM', title: 'Finalists Announced', desc: 'Top teams advancing to the final pitching round are revealed.' },
+    { time: 'Day 3 — 02:15 PM - 06:00 PM', title: 'Final Pitches', desc: 'Finalist teams present their solutions on stage before the judging panel.' },
+    { time: 'Day 3 — 06:30 PM - 07:15 PM', title: 'Closing Ceremony', desc: 'Winners announced, awards presented, and the hackathon concludes.' },
 ];
 
 export default function Timeline() {

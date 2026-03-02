@@ -76,15 +76,15 @@ export default class CelestialScene {
      * Stars from adjacent tiers share the same radial region but spin
      * at different speeds → complex, non-ringy, organic motion.
      */
-    const TIERS = [
-      { rMin: 0.12, rMax: 0.75,  speed: 0.0095, count: 24  },  // very sparse core
-      { rMin: 0.40, rMax: 1.60,  speed: 0.0072, count: 44  },
-      { rMin: 0.90, rMax: 2.90,  speed: 0.0055, count: 90  },
-      { rMin: 1.80, rMax: 4.30,  speed: 0.0042, count: 160 },
-      { rMin: 3.00, rMax: 6.00,  speed: 0.0032, count: 240 },
-      { rMin: 4.50, rMax: 8.00,  speed: 0.0025, count: 310 },
-      { rMin: 6.50, rMax: 10.50, speed: 0.0018, count: 350 },
-      { rMin: 9.00, rMax: 14.00, speed: 0.0013, count: 380 },
+    const EVENTS = [
+        { time: 'Day 0 — 6:00 PM', title: 'Opening Ceremony', desc: 'The celestial gates open. Welcome address and keynote.' },
+        { time: 'Day 0 — 7:30 PM', title: 'Team Formation & Ideation', desc: 'Form your constellation. Brainstorm and strategize.' },
+        { time: 'Day 0 — 9:00 PM', title: 'Hacking Begins', desc: 'The cosmic clock starts. 48 hours of innovation commences.' },
+        { time: 'Day 1 — 10:00 AM', title: 'Mentor Sessions', desc: 'Navigate by the guiding stars. Expert sessions and reviews.' },
+        { time: 'Day 1 — 8:00 PM', title: 'Mid-Hackathon Checkpoint', desc: 'The equinox moment. Progress reviews and pivots.' },
+        { time: 'Day 2 — 12:00 PM', title: 'Final Submissions', desc: 'Seal your creation under the celestial dome.' },
+        { time: 'Day 2 — 3:00 PM', title: 'Demos & Judging', desc: 'Present your work to the cosmic council.' },
+        { time: 'Day 2 — 6:00 PM', title: 'Closing Ceremony', desc: 'Awards, reflections, and the alignment of stars.' },
     ];
     // ≈ 1600 stars — sparse centre, dense outer ring → visually uniform
 
