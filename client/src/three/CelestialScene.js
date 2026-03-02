@@ -1,34 +1,31 @@
-/**
- * CelestialScene.js — Randomised circumpolar star field
- * Stars at fully random radii and angles, grouped into speed tiers
- * (inner faster, outer slower). Overlapping radius ranges between tiers
- * mean no obvious bands — organic, natural-looking sky.
- * Each star: large glowing head + curved arc tail of varying length.
- * 7% accent-coloured, 93% blue-white.
- */
 import * as THREE from 'three';
 
 export default class CelestialScene {
   constructor(container) {
     this.container = container;
-    this.width  = container.clientWidth;
-    this.height = container.clientHeight;
-    this.mouse  = { x: 0, y: 0 };
+    this.width = container.clientWidth || window.innerWidth;
+    this.height = container.clientHeight || window.innerHeight;
+    this.mouse = { x: 0, y: 0 };
     this.scrollY = 0;
     this.frameId = null;
+
+    // Store bound handlers so removeEventListener works correctly
+    this._onResize = this.onResize.bind(this);
+    this._onMouseMove = this.onMouseMove.bind(this);
+    this._onScroll = this.onScroll.bind(this);
 
     this.init();
     this.createRevolvingStars();
     this.animate();
 
-    window.addEventListener('resize',    this.onResize.bind(this));
-    window.addEventListener('mousemove', this.onMouseMove.bind(this));
-    window.addEventListener('scroll',    this.onScroll.bind(this));
+    window.addEventListener('resize', this._onResize);
+    window.addEventListener('mousemove', this._onMouseMove);
+    window.addEventListener('scroll', this._onScroll);
   }
 
   /* ─────────────────────── renderer / scene ─────────────────────── */
   init() {
-    this.scene  = new THREE.Scene();
+    this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(60, this.width / this.height, 0.1, 1000);
     this.camera.position.z = 5;
 
@@ -43,7 +40,7 @@ export default class CelestialScene {
   _makeGlowTexture(size = 128) {
     const canvas = document.createElement('canvas');
     canvas.width = canvas.height = size;
-    const ctx  = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d');
     const half = size / 2;
     const grad = ctx.createRadialGradient(half, half, 0, half, half, half);
     grad.addColorStop(0.00, 'rgba(255,255,255,1.0)');
@@ -61,53 +58,59 @@ export default class CelestialScene {
     this.starGroups = [];
 
     const accentColors = [
-      // new THREE.Color(0xFFE033), // vivid yellow
-      // new THREE.Color(0x33CCFF), // cyan-blue
-      // new THREE.Color(0x55FF88), // mint green
-      // new THREE.Color(0xFF5544), // warm red
-      // new THREE.Color(0xCC77FF), // violet
-      new THREE.Color(0xEFBF04)//gold
+      new THREE.Color(0xEFBF04), // gold
     ];
 
     const glowTex = this._makeGlowTexture(128);
 
-    /*
-     * Speed tiers with intentionally OVERLAPPING radius ranges.
-     * Stars from adjacent tiers share the same radial region but spin
-     * at different speeds → complex, non-ringy, organic motion.
-     */
-    const EVENTS = [
-        { time: 'Day 0 — 6:00 PM', title: 'Opening Ceremony', desc: 'The celestial gates open. Welcome address and keynote.' },
-        { time: 'Day 0 — 7:30 PM', title: 'Team Formation & Ideation', desc: 'Form your constellation. Brainstorm and strategize.' },
-        { time: 'Day 0 — 9:00 PM', title: 'Hacking Begins', desc: 'The cosmic clock starts. 48 hours of innovation commences.' },
-        { time: 'Day 1 — 10:00 AM', title: 'Mentor Sessions', desc: 'Navigate by the guiding stars. Expert sessions and reviews.' },
-        { time: 'Day 1 — 8:00 PM', title: 'Mid-Hackathon Checkpoint', desc: 'The equinox moment. Progress reviews and pivots.' },
-        { time: 'Day 2 — 12:00 PM', title: 'Final Submissions', desc: 'Seal your creation under the celestial dome.' },
-        { time: 'Day 2 — 3:00 PM', title: 'Demos & Judging', desc: 'Present your work to the cosmic council.' },
-        { time: 'Day 2 — 6:00 PM', title: 'Closing Ceremony', desc: 'Awards, reflections, and the alignment of stars.' },
+    const TIERS = [
+      { rMin: 0.12, rMax: 0.75,  speed: 0.0075, count: 5   },
+      { rMin: 0.40, rMax: 1.60,  speed: 0.0052, count: 10  },
+      { rMin: 0.90, rMax: 2.90,  speed: 0.0035, count: 45  },
+      { rMin: 1.80, rMax: 4.30,  speed: 0.0022, count: 160 },
+      { rMin: 3.00, rMax: 6.00,  speed: 0.0012, count: 200 },
+      { rMin: 4.50, rMax: 8.00,  speed: 0.0005, count: 310 },
+      { rMin: 6.50, rMax: 10.50, speed: 0.0008, count: 300 },
+      { rMin: 9.00, rMax: 14.00, speed: 0.0003, count: 200 },
     ];
-    // ≈ 1600 stars — sparse centre, dense outer ring → visually uniform
 
     const TRAIL_PTS = 12;
+
+    const sharedLineMat = new THREE.LineBasicMaterial({
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.45,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+
+    const sharedDotMat = new THREE.PointsMaterial({
+      map: glowTex,
+      color: new THREE.Color(0xBBCCFF),
+      size: 0.30,
+      transparent: true,
+      opacity: 0.70,
+      sizeAttenuation: true,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+      alphaTest: 0.003,
+      vertexColors: true,
+    });
 
     TIERS.forEach(({ rMin, rMax, speed, count }) => {
       const group = new THREE.Group();
 
+      const allLinePositions = [];
+      const allLineColors    = [];
+      const allDotPositions  = [];
+      const allDotColors     = [];
+
       for (let i = 0; i < count; i++) {
-        /* Fully random position — no fixed ring spacing */
-        const angle  = Math.random() * Math.PI * 2;
-        // sqrt(random) biases placement toward the OUTER edge of each tier
-        // so stars accumulate at larger radii, compensating for the larger
-        // circumference and producing visually uniform density overall
-        const radius = rMin + Math.sqrt(Math.random()) * (rMax - rMin);
-        const z      = (Math.random() - 0.5) * 1.0;
+        const angle   = Math.random() * Math.PI * 2;
+        const radius  = rMin + Math.sqrt(Math.random()) * (rMax - rMin);
+        const z       = (Math.random() - 0.5) * 1.0;
+        const arcSpan = 0.16 + Math.random() * 0.32 + radius * 0.018;
 
-        /* Variable tail length per star — shorter near centre, longer outside,
-           plus individual randomness so nearby stars look different */
-        const arcSpan = 0.16 + Math.random() * 0.32   // 0.16–0.48 rad base
-                      + radius * 0.018;                // subtle radius bonus
-
-        /* Colour */
         const isColored = Math.random() < 0.04;
         let color;
         if (isColored) {
@@ -117,78 +120,49 @@ export default class CelestialScene {
           color = new THREE.Color(b * 0.83, b * 0.91, 1.0);
         }
 
-        /* Per-star brightness variation */
         const opacity = isColored
           ? 0.60 + Math.random() * 0.40
           : 0.28 + Math.random() * 0.58;
 
-        /* ── Curved arc trail ──
-           Head at `angle`, tail at `angle + arcSpan`.
-           Pre-baked into the group geometry; stays correct as the group
-           rotates because it is a rigid body. */
-        const positions = new Float32Array(TRAIL_PTS * 3);
-        const vColors   = new Float32Array(TRAIL_PTS * 3);
+        for (let s = 0; s < TRAIL_PTS - 1; s++) {
+          const t0 = s / (TRAIL_PTS - 1);
+          const t1 = (s + 1) / (TRAIL_PTS - 1);
+          const a0 = angle + arcSpan * (1 - t0);
+          const a1 = angle + arcSpan * (1 - t1);
 
-        for (let s = 0; s < TRAIL_PTS; s++) {
-          const t = s / (TRAIL_PTS - 1);           // 0 = tail, 1 = head
-          const a = angle + arcSpan * (1 - t);
-
-          positions[s * 3]     = Math.cos(a) * radius;
-          positions[s * 3 + 1] = Math.sin(a) * radius;
-          positions[s * 3 + 2] = z;
-
-          const fade = t * t;   // quadratic: near-black tail → bright head
-          vColors[s * 3]     = color.r * fade;
-          vColors[s * 3 + 1] = color.g * fade;
-          vColors[s * 3 + 2] = color.b * fade;
+          allLinePositions.push(
+            Math.cos(a0) * radius, Math.sin(a0) * radius, z,
+            Math.cos(a1) * radius, Math.sin(a1) * radius, z,
+          );
+          const fade0 = t0 * t0 * opacity;
+          const fade1 = t1 * t1 * opacity;
+          allLineColors.push(
+            color.r * fade0, color.g * fade0, color.b * fade0,
+            color.r * fade1, color.g * fade1, color.b * fade1,
+          );
         }
 
-        const lineGeom = new THREE.BufferGeometry();
-        lineGeom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        lineGeom.setAttribute('color',    new THREE.BufferAttribute(vColors,   3));
-
-        group.add(new THREE.Line(lineGeom, new THREE.LineBasicMaterial({
-          vertexColors: true,
-          transparent:  true,
-          opacity,
-          blending:     THREE.AdditiveBlending,
-          depthWrite:   false,
-        })));
-
-        /* ── Glowing head dot ── */
         const hx = Math.cos(angle) * radius;
         const hy = Math.sin(angle) * radius;
-
-        const dotGeom = new THREE.BufferGeometry();
-        dotGeom.setAttribute('position', new THREE.BufferAttribute(
-          new Float32Array([hx, hy, z + 0.01]), 3
-        ));
-
-        /* Size scales with radius so far-out stars aren't tiny;
-           colored stars are notably larger and brighter */
-        const dotSize = isColored
-          ? 0.44 + radius * 0.024
-          : 0.28 + radius * 0.016;
-
-        group.add(new THREE.Points(dotGeom, new THREE.PointsMaterial({
-          map:             glowTex,
-          color,
-          size:            dotSize,
-          transparent:     true,
-          opacity:         Math.min(1.0, opacity * 1.55),
-          sizeAttenuation: true,
-          blending:        THREE.AdditiveBlending,
-          depthWrite:      false,
-          alphaTest:       0.003,
-        })));
+        allDotPositions.push(hx, hy, z + 0.01);
+        allDotColors.push(color.r * opacity, color.g * opacity, color.b * opacity);
       }
+
+      const lineGeom = new THREE.BufferGeometry();
+      lineGeom.setAttribute('position', new THREE.BufferAttribute(new Float32Array(allLinePositions), 3));
+      lineGeom.setAttribute('color',    new THREE.BufferAttribute(new Float32Array(allLineColors),    3));
+      group.add(new THREE.LineSegments(lineGeom, sharedLineMat));
+
+      const dotGeom = new THREE.BufferGeometry();
+      dotGeom.setAttribute('position', new THREE.BufferAttribute(new Float32Array(allDotPositions), 3));
+      dotGeom.setAttribute('color',    new THREE.BufferAttribute(new Float32Array(allDotColors),    3));
+      group.add(new THREE.Points(dotGeom, sharedDotMat));
 
       group.userData.speed = speed;
       this.starGroups.push(group);
       this.scene.add(group);
     });
 
-    /* ── Pole-star glow (focal anchor at centre) ── */
     this._addPoleGlow(glowTex);
   }
 
@@ -221,7 +195,6 @@ export default class CelestialScene {
     })));
   }
 
-  /* ─────────────────────── event handlers ───────────────────────── */
   onResize() {
     this.width  = this.container.clientWidth;
     this.height = this.container.clientHeight;
@@ -231,13 +204,12 @@ export default class CelestialScene {
   }
 
   onMouseMove(e) {
-    this.mouse.x =  (e.clientX  / window.innerWidth)  * 2 - 1;
-    this.mouse.y = -(e.clientY  / window.innerHeight)  * 2 + 1;
+    this.mouse.x =  (e.clientX / window.innerWidth)  * 2 - 1;
+    this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
   }
 
   onScroll() { this.scrollY = window.scrollY; }
 
-  /* ─────────────────────── animation loop ───────────────────────── */
   animate() {
     this.frameId = requestAnimationFrame(this.animate.bind(this));
 
@@ -253,9 +225,9 @@ export default class CelestialScene {
   /* ─────────────────────── cleanup ──────────────────────────────── */
   dispose() {
     if (this.frameId) cancelAnimationFrame(this.frameId);
-    window.removeEventListener('resize',    this.onResize.bind(this));
-    window.removeEventListener('mousemove', this.onMouseMove.bind(this));
-    window.removeEventListener('scroll',    this.onScroll.bind(this));
+    window.removeEventListener('resize',    this._onResize);
+    window.removeEventListener('mousemove', this._onMouseMove);
+    window.removeEventListener('scroll',    this._onScroll);
 
     this.scene.traverse((obj) => {
       if (obj.geometry) obj.geometry.dispose();
