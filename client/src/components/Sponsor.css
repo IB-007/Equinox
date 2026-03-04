@@ -2,41 +2,35 @@
    Sponsor Section
    ═══════════════════════════════════════════════ */
 
-.sponsor__tier {
+/* ── Main sponsor row (Panasonic) ── */
+.sponsor__main-row {
+    display: flex;
+    justify-content: center;
     margin-bottom: var(--space-lg);
 }
 
-.sponsor__tier-label {
-    display: block;
-    text-align: center;
-    font-family: var(--font-heading);
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--marble);
-    opacity: 0.4;
-    margin-bottom: var(--space-md);
-}
-
-.sponsor__logos {
+/* ── Other sponsors row ── */
+.sponsor__other-row {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: var(--space-md);
 }
 
+/* ── Shared card base ── */
 .sponsor__logo-card {
-    width: clamp(120px, 28vw, 150px);
-    height: clamp(80px, 18vw, 100px);
-    border: 1px solid rgba(201, 169, 110, 0.08);
-    border-radius: var(--radius-md);
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(47, 58, 85, 0.2);
-    transition: all var(--transition-smooth);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(201, 169, 110, 0.12);
+    border-radius: var(--radius-md);
+    background: rgba(47, 58, 85, 0.25);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition: border-color var(--transition-smooth),
+                background var(--transition-smooth),
+                box-shadow var(--transition-smooth),
+                transform var(--transition-smooth);
     position: relative;
     overflow: hidden;
     /* staggered entrance */
@@ -54,6 +48,13 @@
                 box-shadow var(--transition-smooth);
 }
 
+.sponsor__logo-card:hover {
+    border-color: rgba(201, 169, 110, 0.28);
+    background: rgba(47, 58, 85, 0.42);
+    box-shadow: 0 8px 28px rgba(201, 169, 110, 0.1);
+    transform: translateY(-4px);
+}
+
 /* Diagonal shimmer on hover */
 .sponsor__logo-card::after {
     content: '';
@@ -64,83 +65,74 @@
     height: 100%;
     background: linear-gradient(105deg,
         transparent 30%,
-        rgba(201, 169, 110, 0.08) 50%,
+        rgba(201, 169, 110, 0.07) 50%,
         transparent 70%);
     transform: skewX(-12deg);
     pointer-events: none;
-}
-
-.sponsor__logo-card:hover {
-    border-color: rgba(201, 169, 110, 0.25);
-    background: rgba(47, 58, 85, 0.35);
-    box-shadow: 0 8px 25px rgba(201, 169, 110, 0.15);
-    transform: translateY(-4px);
 }
 
 .sponsor__logo-card:hover::after {
     animation: shimmerSweep 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-.sponsor__logo-placeholder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.4rem;
-    color: var(--marble);
+/* ── Main sponsor card size ── */
+.sponsor__logo-card--main {
+    width: clamp(280px, 42vw, 520px);
+    height: clamp(120px, 13vw, 160px);
+    border-color: rgba(201, 169, 110, 0.2);
 }
 
-.sponsor__logo-name {
-    font-size: 0.6rem;
-    letter-spacing: 0.1em;
-    opacity: 0.4;
-    text-transform: uppercase;
+/* ── Other sponsor card size + lighter background ── */
+.sponsor__other-row .sponsor__logo-card {
+    width: clamp(130px, 17vw, 200px);
+    height: clamp(88px, 10vw, 118px);
+    background: rgba(168, 190, 220, 0.88);
+    border-color: rgba(201, 169, 110, 0.2);
+    box-shadow: inset 0 0 0 1px rgba(168, 190, 220, 0.15);
+    backdrop-filter: blur(16px) brightness(1.9);
+    -webkit-backdrop-filter: blur(16px) brightness(1.9);
 }
 
-/* Tier size differences */
-.sponsor__tier--gold .sponsor__logo-card {
-    width: clamp(150px, 22vw, 180px);
-    height: clamp(100px, 15vw, 120px);
-    border-color: rgba(201, 169, 110, 0.18);
+.sponsor__other-row .sponsor__logo-card:hover {
+    background: rgba(168, 190, 220, 0.96);
+    backdrop-filter: blur(16px) brightness(2.1);
+    -webkit-backdrop-filter: blur(16px) brightness(2.1);
 }
 
-/* Silver = base size (clamp 120–150px), no override needed */
-
-.sponsor__tier--bronze .sponsor__logo-card {
-    width: clamp(100px, 16vw, 130px);
-    height: clamp(68px, 11vw, 85px);
+/* ── Logo image ── */
+.sponsor__logo-img {
+    width: 72%;
+    height: 72%;
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
 }
 
-/* Tier label colour accents */
-.sponsor__tier--gold .sponsor__tier-label {
-    color: var(--gold-subtle);
-    opacity: 0.75;
-    letter-spacing: 0.25em;
+/* Invert dark-on-light logos for dark background */
+.sponsor__logo-img--invert {
+    filter: invert(1) brightness(0.92);
 }
 
-.sponsor__tier--silver .sponsor__tier-label {
-    opacity: 0.5;
-}
-
-.sponsor__tier--bronze .sponsor__tier-label {
-    opacity: 0.35;
-}
-
+/* ── Responsive ── */
 @media (max-width: 768px) {
-    .sponsor__logos {
+    .sponsor__other-row {
         gap: var(--space-sm);
     }
 
-    .sponsor__tier--gold .sponsor__logo-card {
-        width: clamp(130px, 40vw, 160px);
-        height: clamp(88px, 28vw, 108px);
+    .sponsor__other-row .sponsor__logo-card {
+        width: clamp(110px, 38vw, 160px);
+        height: clamp(75px, 22vw, 100px);
     }
 }
 
 @media (max-width: 480px) {
-    .sponsor__tier--gold .sponsor__logo-card,
-    .sponsor__tier--silver .sponsor__logo-card,
-    .sponsor__tier--bronze .sponsor__logo-card {
-        width: clamp(100px, 40vw, 130px);
-        height: clamp(68px, 28vw, 88px);
+    .sponsor__logo-card--main {
+        width: clamp(220px, 80vw, 320px);
+        height: clamp(90px, 22vw, 120px);
+    }
+
+    .sponsor__other-row .sponsor__logo-card {
+        width: clamp(100px, 40vw, 140px);
+        height: clamp(68px, 20vw, 90px);
     }
 }

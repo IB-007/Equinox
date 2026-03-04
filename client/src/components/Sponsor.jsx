@@ -1,15 +1,17 @@
 import { useEffect, useRef } from "react";
 import './Sponsor.css';
 
-const SPONSORS = [
-    { name: 'Sponsor Alpha', tier: 'Gold' },
-    { name: 'Sponsor Beta', tier: 'Gold' },
-    { name: 'Sponsor Gamma', tier: 'Silver' },
-    { name: 'Sponsor Delta', tier: 'Silver' },
-    { name: 'Sponsor Epsilon', tier: 'Silver' },
-    { name: 'Sponsor Zeta', tier: 'Bronze' },
-    { name: 'Sponsor Eta', tier: 'Bronze' },
-    { name: 'Sponsor Theta', tier: 'Bronze' },
+const MAIN_SPONSOR = {
+    name: 'Panasonic',
+    logo: '/sponsor-logos/panasonic.png',
+    invert: true,   // black-on-white logo → invert for dark background
+};
+
+const OTHER_SPONSORS = [
+    { name: 'K7 Computing', logo: '/sponsor-logos/k7.png'       },
+    { name: 'Flipkart',     logo: '/sponsor-logos/flipkart.png' },
+    { name: 'Edubook',      logo: '/sponsor-logos/edubook.png'  },
+    { name: 'Inkind',       logo: '/sponsor-logos/inkind.png'   },
 ];
 
 export default function Sponsor() {
@@ -25,9 +27,7 @@ export default function Sponsor() {
             ([entry]) => {
                 if (entry.isIntersecting) {
                     cards.forEach((card, index) => {
-                        setTimeout(() => {
-                            card.classList.add("show");
-                        }, index * 100);
+                        setTimeout(() => card.classList.add("show"), index * 100);
                     });
                 }
             },
@@ -38,29 +38,6 @@ export default function Sponsor() {
         return () => observer.disconnect();
     }, []);
 
-    const gold = SPONSORS.filter(s => s.tier === 'Gold');
-    const silver = SPONSORS.filter(s => s.tier === 'Silver');
-    const bronze = SPONSORS.filter(s => s.tier === 'Bronze');
-
-    const renderTier = (label, sponsors, tierClass) => (
-        <div className={`sponsor__tier ${tierClass}`}>
-            <span className="sponsor__tier-label">{label}</span>
-            <div className="sponsor__logos">
-                {sponsors.map((s, i) => (
-                    <div className="sponsor__logo-card" key={i}>
-                        <div className="sponsor__logo-placeholder">
-                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                                <rect x="4" y="4" width="24" height="24" rx="4" stroke="currentColor" strokeWidth="1" opacity="0.25" />
-                                <path d="M10 22l6-12 6 12" stroke="currentColor" strokeWidth="1" opacity="0.2" />
-                            </svg>
-                            <span className="sponsor__logo-name">{s.name}</span>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
-
     return (
         <section ref={sectionRef} className="sponsor section" id="sponsors">
             <div className="section-title reveal">
@@ -70,9 +47,31 @@ export default function Sponsor() {
                 </p>
             </div>
 
-            {renderTier('Gold Partners', gold, 'sponsor__tier--gold')}
-            {renderTier('Silver Partners', silver, 'sponsor__tier--silver')}
-            {renderTier('Bronze Partners', bronze, 'sponsor__tier--bronze')}
+            {/* Main sponsor — full-width centred row */}
+            <div className="sponsor__main-row">
+                <div className="sponsor__logo-card sponsor__logo-card--main">
+                    <img
+                        src={MAIN_SPONSOR.logo}
+                        alt={MAIN_SPONSOR.name}
+                        className={`sponsor__logo-img${MAIN_SPONSOR.invert ? ' sponsor__logo-img--invert' : ''}`}
+                        draggable={false}
+                    />
+                </div>
+            </div>
+
+            {/* Other sponsors — 4-card row */}
+            <div className="sponsor__other-row">
+                {OTHER_SPONSORS.map((s, i) => (
+                    <div className="sponsor__logo-card" key={i}>
+                        <img
+                            src={s.logo}
+                            alt={s.name}
+                            className="sponsor__logo-img"
+                            draggable={false}
+                        />
+                    </div>
+                ))}
+            </div>
         </section>
     );
 }
