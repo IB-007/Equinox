@@ -16,16 +16,17 @@ const CHARS = [
 ];
 
 export default function About() {
-    const sectionRef = useRef(null);
-    const imgRefs    = useRef([]);
-    const digitRefs  = useRef([]);
-    const timerRefs  = useRef([]);
-    const subRef     = useRef(null);
+    const sectionRef  = useRef(null);
+    const logoWrapRef = useRef(null);
+    const imgRefs     = useRef([]);
+    const digitRefs   = useRef([]);
+    const timerRefs   = useRef([]);
+    const subRef      = useRef(null);
 
-    /* ── Entrance animation on first scroll into view ── */
+    /* ── Entrance animation — fires when logo wrap itself scrolls into view ── */
     useEffect(() => {
-        const section = sectionRef.current;
-        if (!section) return;
+        const target = logoWrapRef.current;
+        if (!target) return;
 
         const observer = new IntersectionObserver(([entry]) => {
             if (!entry.isIntersecting) return;
@@ -59,9 +60,9 @@ export default function About() {
                     }, 60);
                 }, i * 75);
             });
-        }, { threshold: 0.25 });
+        }, { threshold: 0.5 });
 
-        observer.observe(section);
+        observer.observe(target);
         return () => observer.disconnect();
     }, []);
 
@@ -137,7 +138,7 @@ export default function About() {
 
                 <div className="about__visual">
                     {/* PNG Character Logo */}
-                    <div className="about__logo-wrap">
+                    <div ref={logoWrapRef} className="about__logo-wrap">
                         <div className="about__logo-text">
                             {CHARS.map(({ png, key }, i) => (
                                 <div
