@@ -23,20 +23,18 @@ export default function About() {
             <div className="about__grid reveal">
                 <div className="about__text">
                     <p className="about__lead accent-text">
-                        Where ancient wisdom meets modern innovation
+                        Where innovation meets infrastructure
                     </p>
                     <p>
-                        Equinox is a 48-hour hackathon that challenges participants to find
-                        the perfect balance between creativity and technology. Like the
-                        celestial equinox — where day and night share equal reign — this
-                        event brings together diverse minds to build solutions that harmonize
-                        logic with imagination.
+                        Equinox '26 is a 3-day hackathon centered on the theme of <strong>Smart Infrastructure</strong>, 
+                        challenging teams to build solutions that make cities, homes, roads, and communities more intelligent, connected, and resilient. 
                     </p>
                     <p>
-                        Organized by <strong>RoboVITics</strong>, Equinox invites coders,
-                        designers, and innovators from across the country to convene under
-                        one celestial dome and push the boundaries of what's possible in
-                        48 hours.
+                        
+                        Organized by <strong>RoboVITics</strong> and hosted at <strong>VIT Vellore</strong>, Equinox brings together coders, designers,
+                         and innovators from across the country for <strong>3 days</strong> of relentless building. Beyond the code and hardware, 
+                         Equinox is an ecosystem of rapid prototyping and high-stakes problem-solving. 
+                         It’s where theoretical concepts meet real-world constraints, pushing participants to transcend traditional engineering boundaries.
                     </p>
                 </div>
 
@@ -50,16 +48,16 @@ export default function About() {
 
                     <div className="about__stats">
                         <div className="about__stat">
-                            <span className="about__stat-number">48</span>
-                            <span className="about__stat-label">Hours</span>
+                            <span className="about__stat-number">3</span>
+                            <span className="about__stat-label">Days</span>
                         </div>
                         <div className="about__stat">
                             <span className="about__stat-number">6</span>
                             <span className="about__stat-label">Tracks</span>
                         </div>
                         <div className="about__stat">
-                            <span className="about__stat-number">∞</span>
-                            <span className="about__stat-label">Possibilities</span>
+                            <span className="about__stat-number">1500</span>
+                            <span className="about__stat-label">Participants</span>
                         </div>
                     </div>
                 </div>

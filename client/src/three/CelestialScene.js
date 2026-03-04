@@ -59,6 +59,12 @@ export default class CelestialScene {
 
     const accentColors = [
       new THREE.Color(0xEFBF04), // gold
+      new THREE.Color(0x66CCFF), // light blue
+      new THREE.Color(0xFF99CC), // pink
+      new THREE.Color(0x99FF99), // mint
+      new THREE.Color(0xFFCC66), // peach
+      new THREE.Color(0xCC66FF), // purple
+      new THREE.Color(0x6666FF), // periwinkle
     ];
 
     const glowTex = this._makeGlowTexture(128);
@@ -111,7 +117,7 @@ export default class CelestialScene {
         const z       = (Math.random() - 0.5) * 1.0;
         const arcSpan = 0.16 + Math.random() * 0.32 + radius * 0.018;
 
-        const isColored = Math.random() < 0.04;
+        const isColored = Math.random() < 0.10;
         let color;
         if (isColored) {
           color = accentColors[Math.floor(Math.random() * accentColors.length)].clone();

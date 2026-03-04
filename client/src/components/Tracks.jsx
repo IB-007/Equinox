@@ -2,40 +2,41 @@ import './Tracks.css';
 
 const TRACKS = [
     {
-        name: 'Orion Track',
-        subtitle: 'AI & Machine Learning',
-        icon: '⚝',
-        description: 'Navigate the vast neural cosmos. Build intelligent systems that learn, adapt, and illuminate new paths through data.',
+        name: 'Healthcare',
+        subtitle: 'Smart Infrastructure for Health',
+        icon: '✚',
+        description: 'Build solutions that leverage smart infrastructure to bridge gaps in healthcare delivery, resource management, and patient wellness across communities.',
     },
     {
-        name: 'Atlas Track',
-        subtitle: 'Web3 & Blockchain',
-        icon: '◈',
-        description: 'Carry the weight of decentralization. Forge trustless systems and reshape the architecture of digital trust.',
+        name: 'Road Safety',
+        subtitle: 'Intelligent Transportation Systems',
+        icon: '⊕',
+        description: 'Design systems that make roads smarter, safer, and more efficient — from collision prevention to adaptive traffic management and urban mobility.',
     },
     {
-        name: 'Lyra Track',
-        subtitle: 'Healthcare & Biotech',
-        icon: '❋',
-        description: 'Harmonize technology with the human form. Create solutions that heal, predict, and protect life itself.',
+        name: 'Social Wellness',
+        subtitle: 'Tech-Enabled Communities',
+        icon: '⊙',
+        description: 'Create technology-powered solutions that improve how communities live, interact, and thrive — transforming public spaces into inclusive, connected environments.',
     },
     {
-        name: 'Vega Track',
-        subtitle: 'Sustainability & CleanTech',
-        icon: '✧',
-        description: 'Shine bright for the planet. Engineer solutions that preserve our world for generations yet unborn.',
+        name: 'Smart Security',
+        subtitle: 'Protection & Cyber Resilience',
+        icon: '⊗',
+        description: 'Build solutions that protect smart infrastructure from physical and digital threats — securing connected systems, data pipelines, and public utilities.',
     },
     {
-        name: 'Perseus Track',
-        subtitle: 'Cybersecurity',
-        icon: '⛊',
-        description: 'Defend the digital realm. Build shields, uncover vulnerabilities, and protect the constellation of connected systems.',
+        name: 'Smart Home',
+        subtitle: 'Home Automation & Intelligent Living',
+        icon: '⌂',
+        description: 'Develop solutions that transform homes into responsive, efficient, and connected living spaces.',
+        sponsored: true,
     },
     {
-        name: 'Andromeda Track',
-        subtitle: 'Open Innovation',
-        icon: '✦',
-        description: 'Reach beyond the known galaxy. No constraints, no limits — just pure, unbounded innovation.',
+        name: 'Open Innovation',
+        subtitle: 'Smart Infrastructure — Your Way',
+        icon: '∞',
+        description: 'No domain constraints — just the theme of Smart Infrastructure. Reach beyond defined boundaries and build whatever the future demands.',
     },
 ];
 
@@ -67,7 +68,7 @@ export default function Tracks() {
 
             <div className="tracks__grid reveal stagger">
                 {TRACKS.map((track) => (
-                    <div className="tracks__card" key={track.name}>
+                    <div className={`tracks__card${track.sponsored ? ' tracks__card--sponsored' : ''}`} key={track.name}>
                         <span className="tracks__icon">{track.icon}</span>
                         <h3 className="tracks__name">{track.name}</h3>
                         <span className="tracks__subtitle accent-text">{track.subtitle}</span>

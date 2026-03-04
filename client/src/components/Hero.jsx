@@ -14,8 +14,8 @@ export default function Hero() {
             sceneRef.current = new CelestialScene(canvasRef.current);
         }
 
-        // countdown logic (20 days from load)
-        const target = new Date().getTime() + 20 * 24 * 60 * 60 * 1000;
+        // countdown to April 1 2026 08:00 AM IST
+        const target = new Date('2026-04-01T08:00:00+05:30').getTime();
 
         const timer = setInterval(() => {
             const now = new Date().getTime();
@@ -52,7 +52,7 @@ export default function Hero() {
 
             <div className="hero__content page-enter">
                 <p className="hero__pre-title accent-text">
-                    A 48-Hour Hackathon by RoboVITics
+                    A 3-Day Hackathon by RoboVITics
                 </p>
 
                 <h1 className="hero__title" style={{alignItems:'center',justifyContent:'center',display:'flex'}}>
@@ -84,7 +84,7 @@ export default function Hero() {
                 </div>
 
                 <p className="hero__subtitle">
-                    Where the balance of logic and creativity converges under the celestial dome of innovation.
+                    Theme: Smart Infrastructure
                 </p>
 
                 <div className="hero__actions">

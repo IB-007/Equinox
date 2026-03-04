@@ -228,12 +228,6 @@ export default function ConstellationCanvas() {
                 ctx.arc(s.fx * W, s.fy * H, s.r, 0, Math.PI * 2);
                 ctx.fillStyle = `rgba(${r},${g},${b},${a.toFixed(3)})`;
                 ctx.fill();
-                if (s.r > 1.0) {
-                    ctx.beginPath();
-                    ctx.arc(s.fx * W, s.fy * H, s.r * 2.5, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(${r},${g},${b},${(a * 0.09).toFixed(3)})`;
-                    ctx.fill();
-                }
             }
 
             /* ── Active constellation stars ── */
@@ -249,20 +243,6 @@ export default function ConstellationCanvas() {
                         Math.sin((ts / (3800 + s.fx * 1600)) * Math.PI * 2 + s.fx * 8.1));
                     const a = s.a * flicker * masterAlpha;
                     const [r, g, b] = s.c;
-
-                    /* Wide diffuse halo — only for bright stars */
-                    if (s.r > 2.8) {
-                        ctx.beginPath();
-                        ctx.arc(x, y, s.r * 5, 0, Math.PI * 2);
-                        ctx.fillStyle = `rgba(${r},${g},${b},${(a * 0.05).toFixed(3)})`;
-                        ctx.fill();
-                    }
-
-                    /* Mid glow */
-                    ctx.beginPath();
-                    ctx.arc(x, y, s.r * 2.4, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(${r},${g},${b},${(a * 0.16).toFixed(3)})`;
-                    ctx.fill();
 
                     /* Core disc */
                     ctx.beginPath();

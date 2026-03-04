@@ -1,0 +1,283 @@
+/* ═══════════════════════════════════════════════
+   About Us Section  —  VIT | RoboVITics
+   ═══════════════════════════════════════════════ */
+
+/* ── Full-viewport, flex-centred section ── */
+.aboutus.section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* override the global var(--space-xl) vertical padding */
+    padding-top: calc(var(--nav-height) + 2vh);
+    padding-bottom: 3vh;
+    overflow: hidden;
+}
+
+/* ── Background duality SVG ── */
+.aboutus__bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(800px, 95vw);
+    height: min(600px, 70vw);
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: 0;
+    animation: slowRotate 240s linear infinite;
+}
+
+.aboutus__bg svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* ── Section title — tighter margin ── */
+.aboutus .section-title {
+    margin-bottom: clamp(1rem, 2.5vh, 1.8rem);
+}
+
+/* ── Section subtitle ── */
+.aboutus__intro {
+    display: block;
+    text-align: center;
+    font-size: clamp(0.85rem, 1.2vw, 1rem);
+    color: var(--gold-subtle);
+    opacity: 0.6;
+    margin-top: 0.4rem;
+    max-width: 50ch;
+    margin-inline: auto;
+}
+
+/* ── Three-column layout: card | divider | card ── */
+.aboutus__layout {
+    display: grid;
+    grid-template-columns: 1fr 36px 1fr;
+    gap: 0 clamp(1rem, 2vw, 2rem);
+    align-items: stretch;
+    position: relative;
+    z-index: 2;
+}
+
+/* ── Cards ── */
+.aboutus__card {
+    background: rgba(47, 58, 85, 0.22);
+    border: 1px solid rgba(201, 169, 110, 0.1);
+    border-radius: 2px;
+    padding: clamp(1.1rem, 2.5vh, 1.7rem) clamp(1.2rem, 2vw, 1.8rem);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    position: relative;
+    overflow: hidden;
+    transition:
+        border-color var(--transition-smooth),
+        box-shadow var(--transition-smooth),
+        opacity var(--transition-cinematic),
+        transform var(--transition-cinematic),
+        filter var(--transition-cinematic);
+}
+
+/* Shimmer sweep on hover */
+.aboutus__card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -80%;
+    width: 55%;
+    height: 100%;
+    background: linear-gradient(
+        105deg,
+        transparent 30%,
+        rgba(201, 169, 110, 0.05) 50%,
+        transparent 70%
+    );
+    transform: skewX(-15deg);
+    pointer-events: none;
+}
+
+.aboutus__card:hover::before {
+    animation: shimmerSweep 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Gold top-edge reveal on hover */
+.aboutus__card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-subtle), transparent);
+    opacity: 0;
+    transition: opacity var(--transition-smooth);
+}
+
+.aboutus__card:hover {
+    border-color: rgba(201, 169, 110, 0.26);
+    box-shadow:
+        0 8px 40px rgba(201, 169, 110, 0.05),
+        0 0 0 1px rgba(201, 169, 110, 0.04);
+}
+
+.aboutus__card:hover::after {
+    opacity: 0.5;
+}
+
+/* ── Directional reveal ── */
+.aboutus__card.reveal.slide-left {
+    transform: translateX(-50px);
+    transition-delay: 0.05s;
+}
+
+.aboutus__card.reveal.slide-right {
+    transform: translateX(50px);
+    transition-delay: 0.18s;
+}
+
+.aboutus__card.reveal.slide-left.visible,
+.aboutus__card.reveal.slide-right.visible {
+    transform: translateX(0);
+}
+
+/* ── Card header ── */
+.aboutus__card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 0.45rem;
+}
+
+.aboutus__card-icon {
+    font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+    color: var(--gold-subtle);
+    opacity: 0.65;
+    line-height: 1;
+    flex-shrink: 0;
+    transition: opacity var(--transition-smooth);
+}
+
+.aboutus__card:hover .aboutus__card-icon {
+    opacity: 1;
+}
+
+.aboutus__card-title {
+    font-family: var(--font-heading);
+    font-size: clamp(0.8rem, 1.3vw, 1rem);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mist);
+    margin: 0;
+}
+
+/* ── Tagline ── */
+.aboutus__card-tagline {
+    font-size: clamp(0.82rem, 1vw, 0.93rem);
+    color: var(--gold-subtle);
+    opacity: 0.6;
+    margin-bottom: 0.7rem;
+    display: block;
+}
+
+/* ── Body copy ── */
+.aboutus__card-body p {
+    font-size: clamp(0.8rem, 0.95vw, 0.9rem);
+    opacity: 0.8;
+    line-height: 1.65;
+    margin-bottom: 0.5rem;
+    max-width: unset;
+}
+
+.aboutus__card-body p:last-child {
+    margin-bottom: 0;
+}
+
+/* ── Stats row ── */
+.aboutus__card-stats {
+    display: flex;
+    gap: clamp(1rem, 2.5vw, 2rem);
+    margin-top: clamp(0.8rem, 1.5vh, 1.2rem);
+    padding-top: clamp(0.7rem, 1.2vh, 1rem);
+    border-top: 1px solid var(--gold-line);
+    flex-wrap: wrap;
+}
+
+.aboutus__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.aboutus__stat-num {
+    font-family: var(--font-heading);
+    font-size: clamp(1rem, 1.8vw, 1.3rem);
+    color: var(--mist);
+    letter-spacing: 0.05em;
+    transition: color var(--transition-smooth), text-shadow var(--transition-smooth);
+}
+
+.aboutus__stat:hover .aboutus__stat-num {
+    color: var(--gold-subtle);
+    text-shadow: 0 0 18px rgba(201, 169, 110, 0.3);
+}
+
+.aboutus__stat-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.45;
+}
+
+/* ── Vertical divider column ── */
+.aboutus__divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.aboutus__divider svg {
+    width: 36px;
+    height: 100%;
+    min-height: 160px;
+    max-height: 320px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+    .aboutus.section {
+        min-height: auto;
+        padding-top: calc(var(--nav-height) + var(--space-md));
+        padding-bottom: var(--space-md);
+    }
+
+    .aboutus__layout {
+        grid-template-columns: 1fr;
+        gap: var(--space-md) 0;
+    }
+
+    .aboutus__divider {
+        display: none;
+    }
+
+    /* Revert to standard vertical reveal on small screens */
+    .aboutus__card.reveal.slide-left,
+    .aboutus__card.reveal.slide-right {
+        transform: translateY(30px);
+        transition-delay: 0s;
+    }
+
+    .aboutus__card.reveal.slide-left.visible,
+    .aboutus__card.reveal.slide-right.visible {
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 600px) {
+    .aboutus__card {
+        padding: var(--space-md) var(--space-sm);
+    }
+
+    .aboutus__card-stats {
+        gap: var(--space-md);
+    }
+}

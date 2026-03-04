@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import ConstellationCanvas from './components/ConstellationCanvas';
 import Hero from './components/Hero';
 import About from './components/About';
+import AboutUs from './components/AboutUs';
 import Tracks from './components/Tracks';
 import Timeline from './components/Timeline';
 import Sponsor from './components/Sponsor';
@@ -48,6 +49,9 @@ export default function App() {
 
         <div className="celestial-divider" />
         <About />
+
+        <div className="celestial-divider" />
+        <AboutUs />
 
         <div className="celestial-divider" />
         <Tracks />
